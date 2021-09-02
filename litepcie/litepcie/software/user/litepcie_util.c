@@ -58,6 +58,8 @@ int main(int argc, char **argv)
     litepcie_device_num = 0;
 
     snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
+    
+     cmd = argv[optind++];
     }
 
 }
