@@ -52,7 +52,13 @@ static void info(void)
 }
 
 
-int main()
+int main(int argc, char **argv)
 {
-    return 0; //Work on this function tomorrow
+    const char *cmd;
+    litepcie_device_num = 0;
+
+    snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
+    }
+
 }
+
