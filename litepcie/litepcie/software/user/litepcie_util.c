@@ -16,7 +16,6 @@
 #include <fcntl.h>
 #include <signal.h>
 
-#include <iostream>
 #include "litepcie.h"
 #include "config.h"
 #include "csr.h"
@@ -54,13 +53,10 @@ static void info(void)
 
 int main(int argc, char **argv)
 {
+    info();
+
     const char *cmd;
     litepcie_device_num = 0;
 
     snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
-    
-     cmd = argv[optind++];
-    }
-
 }
-
