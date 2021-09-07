@@ -50,9 +50,8 @@ int main(int argc, char **argv)
     const char *cmd;
     litepcie_device_num = 0;
 
-    info();
-
     snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
     
+    info();
     return 0;
 }
