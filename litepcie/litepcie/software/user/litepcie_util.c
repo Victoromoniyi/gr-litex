@@ -42,21 +42,15 @@ static void info(void)
     for(i=0; i<256; i++)
         fpga_identification[i] = litepcie_readl(fd, CSR_IDENTIFIER_MEM_BASE + 4*i);
     printf("FPGA identification: %s\n", fpga_identification);
-#ifdef CSR_DNA_BASE
-    printf("FPGA dna: 0x%08x%08x\n",
-        litepcie_readl(fd, CSR_DNA_ID_ADDR + 4*0),
-        litepcie_readl(fd, CSR_DNA_ID_ADDR + 4*1)
-    );
-#endif
 }
 
 
 int main(int argc, char **argv)
 {
-    info();
-
     const char *cmd;
     litepcie_device_num = 0;
+
+    info();
 
     snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
     
