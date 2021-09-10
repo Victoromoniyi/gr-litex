@@ -3,6 +3,7 @@
   <compounddef id="api_8h" kind="file" language="C++">
     <compoundname>api.h</compoundname>
     <includes local="no">gnuradio/attributes.h</includes>
+    <includedby refid="square__ff_8h" local="no">square_ff.h</includedby>
     <incdepgraph>
       <node id="2">
         <label>gnuradio/attributes.h</label>
@@ -14,6 +15,24 @@
         </childnode>
       </node>
     </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>square_ff.h</label>
+        <link refid="square__ff_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>square_ff_impl.h</label>
+        <link refid="square__ff__impl_8h"/>
+      </node>
+      <node id="1">
+        <label>api.h</label>
+        <link refid="api_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
       <sectiondef kind="define">
       <memberdef kind="define" id="api_8h_1a7a9fda890b8e28fac667cbd66796f13b" prot="public" static="no">
         <name>HOWTO_API</name>
@@ -24,13 +43,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/include/howto/api.h" line="31" column="10" bodyfile="/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/include/howto/api.h" bodystart="31" bodyend="-1"/>
+        <location file="/home/cardiff/Desktop/gr-howto/include/howto/api.h" line="19" column="10" bodyfile="/home/cardiff/Desktop/gr-howto/include/howto/api.h" bodystart="19" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/include/howto/api.h"/>
+    <location file="/home/cardiff/Desktop/gr-howto/include/howto/api.h"/>
   </compounddef>
 </doxygen>

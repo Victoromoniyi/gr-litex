@@ -1,2 +1,2 @@
-qa_square3_ff 2 0.378659
+qa_square_ff 1 0.254924
 ---

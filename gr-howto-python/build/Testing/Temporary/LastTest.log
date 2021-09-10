@@ -1,0 +1,23 @@
+Start testing: Jul 01 14:16 BST
+----------------------------------------------------------
+1/1 Testing: qa_square3_ff
+1/1 Test: qa_square3_ff
+Command: "/bin/sh" "/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/build/python/qa_square3_ff_test.sh"
+Directory: /Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/build/python
+"qa_square3_ff" start time: Jul 01 14:16 BST
+Output:
+----------------------------------------------------------
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+<end of output>
+Test time =   0.76 sec
+----------------------------------------------------------
+Test Passed.
+"qa_square3_ff" end time: Jul 01 14:16 BST
+"qa_square3_ff" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Jul 01 14:16 BST

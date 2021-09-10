@@ -1,8 +1,8 @@
-# Install script for directory: /Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/python
+# Install script for directory: /home/cardiff/Desktop/gr-howto/python
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "/home/cardiff/local")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -27,6 +27,11 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
+# Install shared libraries without execute permission?
+if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  set(CMAKE_INSTALL_SO_NO_EXE "1")
+endif()
+
 # Is this installation the result of a crosscompile?
 if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
@@ -34,22 +39,23 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/Library/Developer/CommandLineTools/usr/bin/objdump")
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3.7/site-packages/howto" TYPE FILE FILES
-    "/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/python/__init__.py"
-    "/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/python/square3_ff.py"
-    )
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages/howto" TYPE FILE FILES "/home/cardiff/Desktop/gr-howto/python/__init__.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3.7/site-packages/howto" TYPE FILE FILES
-    "/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/build/python/__init__.pyc"
-    "/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/build/python/square3_ff.pyc"
-    "/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/build/python/__init__.pyo"
-    "/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/build/python/square3_ff.pyo"
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages/howto" TYPE FILE FILES
+    "/home/cardiff/Desktop/gr-howto/build/python/__init__.pyc"
+    "/home/cardiff/Desktop/gr-howto/build/python/__init__.pyo"
     )
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for each subdirectory.
+  include("/home/cardiff/Desktop/gr-howto/build/python/bindings/cmake_install.cmake")
+
 endif()
 

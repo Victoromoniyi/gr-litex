@@ -1,8 +1,9 @@
 # CMake generated Testfile for 
-# Source directory: /Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/python
-# Build directory: /Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/build/python
+# Source directory: /home/cardiff/Desktop/gr-howto/python
+# Build directory: /home/cardiff/Desktop/gr-howto/build/python
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
-add_test(qa_square3_ff "/bin/sh" "/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/build/python/qa_square3_ff_test.sh")
-set_tests_properties(qa_square3_ff PROPERTIES  _BACKTRACE_TRIPLES "/opt/local/share/cmake/gnuradio/GrTest.cmake;122;add_test;/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/python/CMakeLists.txt;45;GR_ADD_TEST;/Users/victoromoniyi/Desktop/GNUBlocks/gr-howto/python/CMakeLists.txt;0;")
+add_test(qa_square_ff "/usr/bin/sh" "/home/cardiff/Desktop/gr-howto/build/python/qa_square_ff_test.sh")
+set_tests_properties(qa_square_ff PROPERTIES  _BACKTRACE_TRIPLES "/home/cardiff/local/lib/cmake/gnuradio/GrTest.cmake;110;add_test;/home/cardiff/Desktop/gr-howto/python/CMakeLists.txt;34;GR_ADD_TEST;/home/cardiff/Desktop/gr-howto/python/CMakeLists.txt;0;")
+subdirs("bindings")
