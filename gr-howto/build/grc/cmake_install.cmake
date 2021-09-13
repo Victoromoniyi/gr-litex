@@ -1,4 +1,4 @@
-# Install script for directory: /home/cardiff/Desktop/gr-howto/grc
+# Install script for directory: /home/cardiff/Desktop/GNULiteX/gr-howto/grc
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -43,6 +43,6 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gnuradio/grc/blocks" TYPE FILE FILES "/home/cardiff/Desktop/gr-howto/grc/howto_square_ff.block.yml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gnuradio/grc/blocks" TYPE FILE FILES "/home/cardiff/Desktop/GNULiteX/gr-howto/grc/howto_square_ff.block.yml")
 endif()
 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/cardiff/Desktop/gr-howto/include/howto
+# Install script for directory: /home/cardiff/Desktop/GNULiteX/gr-howto/include/howto
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,8 +44,8 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/howto" TYPE FILE FILES
-    "/home/cardiff/Desktop/gr-howto/include/howto/api.h"
-    "/home/cardiff/Desktop/gr-howto/include/howto/square_ff.h"
+    "/home/cardiff/Desktop/GNULiteX/gr-howto/include/howto/api.h"
+    "/home/cardiff/Desktop/GNULiteX/gr-howto/include/howto/square_ff.h"
     )
 endif()
 

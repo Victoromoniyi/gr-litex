@@ -1,4 +1,4 @@
-# Install script for directory: /home/cardiff/Desktop/gr-howto/lib
+# Install script for directory: /home/cardiff/Desktop/GNULiteX/gr-howto/lib
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -55,8 +55,8 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     endif()
   endforeach()
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES
-    "/home/cardiff/Desktop/gr-howto/build/lib/libgnuradio-howto.so.v1.0-compat-xxx-xunknown"
-    "/home/cardiff/Desktop/gr-howto/build/lib/libgnuradio-howto.so.1.0.0git"
+    "/home/cardiff/Desktop/GNULiteX/gr-howto/build/lib/libgnuradio-howto.so.v1.0-compat-xxx-xunknown"
+    "/home/cardiff/Desktop/GNULiteX/gr-howto/build/lib/libgnuradio-howto.so.1.0.0git"
     )
   foreach(file
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libgnuradio-howto.so.v1.0-compat-xxx-xunknown"
@@ -78,7 +78,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libgnuradio-howto.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/cardiff/Desktop/gr-howto/build/lib/libgnuradio-howto.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/cardiff/Desktop/GNULiteX/gr-howto/build/lib/libgnuradio-howto.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libgnuradio-howto.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libgnuradio-howto.so")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -91,7 +91,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/howto/gnuradio-howtoTargets.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/howto/gnuradio-howtoTargets.cmake"
-         "/home/cardiff/Desktop/gr-howto/build/lib/CMakeFiles/Export/lib/cmake/howto/gnuradio-howtoTargets.cmake")
+         "/home/cardiff/Desktop/GNULiteX/gr-howto/build/lib/CMakeFiles/Export/lib/cmake/howto/gnuradio-howtoTargets.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/howto/gnuradio-howtoTargets-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -100,13 +100,13 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/howto" TYPE FILE FILES "/home/cardiff/Desktop/gr-howto/build/lib/CMakeFiles/Export/lib/cmake/howto/gnuradio-howtoTargets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/howto" TYPE FILE FILES "/home/cardiff/Desktop/GNULiteX/gr-howto/build/lib/CMakeFiles/Export/lib/cmake/howto/gnuradio-howtoTargets.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/howto" TYPE FILE FILES "/home/cardiff/Desktop/gr-howto/build/lib/CMakeFiles/Export/lib/cmake/howto/gnuradio-howtoTargets-release.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/howto" TYPE FILE FILES "/home/cardiff/Desktop/GNULiteX/gr-howto/build/lib/CMakeFiles/Export/lib/cmake/howto/gnuradio-howtoTargets-release.cmake")
   endif()
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/howto" TYPE FILE FILES "/home/cardiff/Desktop/gr-howto/build/lib/cmake/Modules/gnuradio-howtoConfig.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/howto" TYPE FILE FILES "/home/cardiff/Desktop/GNULiteX/gr-howto/build/lib/cmake/Modules/gnuradio-howtoConfig.cmake")
 endif()
 

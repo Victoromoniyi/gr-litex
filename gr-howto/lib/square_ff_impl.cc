@@ -32,6 +32,10 @@
 
 #include "liblitepcie.h"
 
+static char litepcie_device[1024];
+static int litepcie_device_num;
+
+
 namespace gr {
   namespace howto {
     using input_type = float;
@@ -43,6 +47,21 @@ namespace gr {
         );
     }
 
+    static void info(void){
+      int fd;
+      int i;
+      unsigned char fpga_identification[256];
+
+      fd = open(litepcie_device, O_RDWR);
+      if (fd < 0){
+        fprintf(stderr, "Could not init driver\n");
+        exit(1);
+      }
+
+    for(i=0; i<256; i++)
+        fpga_identification[i] = litepcie_readl(fd, CSR_IDENTIFIER_MEM_BASE + 4*i);
+    printf("FPGA identification: %s\n", fpga_identification);
+    }
 
     /*
      * The private constructor
@@ -78,6 +97,13 @@ namespace gr {
       for (int i = 0; i < noutput_items; i++){
         out[i] = in[i] * in[i];
       }
+
+     const char *cmd;
+     litepcie_device_num = 0;
+
+     snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
+     
+     info();
 
       // Do <+signal processing+>
       // Tell runtime system how many input items we consumed on

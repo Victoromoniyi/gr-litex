@@ -1,4 +1,4 @@
-# Install script for directory: /home/cardiff/Desktop/gr-howto/docs
+# Install script for directory: /home/cardiff/Desktop/GNULiteX/gr-howto/docs
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/cardiff/Desktop/gr-howto/build/docs/doxygen/cmake_install.cmake")
+  include("/home/cardiff/Desktop/GNULiteX/gr-howto/build/docs/doxygen/cmake_install.cmake")
 
 endif()
 

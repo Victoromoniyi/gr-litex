@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/cardiff/Desktop/gr-howto
+CMAKE_SOURCE_DIR = /home/cardiff/Desktop/GNULiteX/gr-howto
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cardiff/Desktop/gr-howto/build
+CMAKE_BINARY_DIR = /home/cardiff/Desktop/GNULiteX/gr-howto/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -156,14 +156,14 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/cardiff/Desktop/gr-howto/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/cardiff/Desktop/gr-howto/build/CMakeFiles /home/cardiff/Desktop/gr-howto/build/include/howto//CMakeFiles/progress.marks
-	cd /home/cardiff/Desktop/gr-howto/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 include/howto/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cardiff/Desktop/gr-howto/build/CMakeFiles 0
+	cd /home/cardiff/Desktop/GNULiteX/gr-howto/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/cardiff/Desktop/GNULiteX/gr-howto/build/CMakeFiles /home/cardiff/Desktop/GNULiteX/gr-howto/build/include/howto//CMakeFiles/progress.marks
+	cd /home/cardiff/Desktop/GNULiteX/gr-howto/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 include/howto/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cardiff/Desktop/GNULiteX/gr-howto/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/cardiff/Desktop/gr-howto/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 include/howto/clean
+	cd /home/cardiff/Desktop/GNULiteX/gr-howto/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 include/howto/clean
 .PHONY : clean
 
 # The main clean target
@@ -173,17 +173,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/cardiff/Desktop/gr-howto/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 include/howto/preinstall
+	cd /home/cardiff/Desktop/GNULiteX/gr-howto/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 include/howto/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/cardiff/Desktop/gr-howto/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 include/howto/preinstall
+	cd /home/cardiff/Desktop/GNULiteX/gr-howto/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 include/howto/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/cardiff/Desktop/gr-howto/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/cardiff/Desktop/GNULiteX/gr-howto/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -210,6 +210,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/cardiff/Desktop/gr-howto/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/cardiff/Desktop/GNULiteX/gr-howto/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
