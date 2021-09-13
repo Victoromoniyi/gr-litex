@@ -1,4 +1,4 @@
-# Install script for directory: /home/cardiff/Desktop/GNULiteX/gr-howto/python
+# Install script for directory: /home/cardiff/Desktop/gr-howto/python
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -43,19 +43,19 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages/howto" TYPE FILE FILES "/home/cardiff/Desktop/GNULiteX/gr-howto/python/__init__.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages/howto" TYPE FILE FILES "/home/cardiff/Desktop/gr-howto/python/__init__.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages/howto" TYPE FILE FILES
-    "/home/cardiff/Desktop/GNULiteX/gr-howto/build/python/__init__.pyc"
-    "/home/cardiff/Desktop/GNULiteX/gr-howto/build/python/__init__.pyo"
+    "/home/cardiff/Desktop/gr-howto/build/python/__init__.pyc"
+    "/home/cardiff/Desktop/gr-howto/build/python/__init__.pyo"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/cardiff/Desktop/GNULiteX/gr-howto/build/python/bindings/cmake_install.cmake")
+  include("/home/cardiff/Desktop/gr-howto/build/python/bindings/cmake_install.cmake")
 
 endif()
 

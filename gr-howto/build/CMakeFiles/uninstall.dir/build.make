@@ -62,10 +62,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/cardiff/Desktop/GNULiteX/gr-howto
+CMAKE_SOURCE_DIR = /home/cardiff/Desktop/gr-howto
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cardiff/Desktop/GNULiteX/gr-howto/build
+CMAKE_BINARY_DIR = /home/cardiff/Desktop/gr-howto/build
 
 # Utility rule file for uninstall.
 
@@ -73,7 +73,7 @@ CMAKE_BINARY_DIR = /home/cardiff/Desktop/GNULiteX/gr-howto/build
 include CMakeFiles/uninstall.dir/progress.make
 
 CMakeFiles/uninstall:
-	/usr/bin/cmake -P /home/cardiff/Desktop/GNULiteX/gr-howto/build/cmake_uninstall.cmake
+	/usr/bin/cmake -P /home/cardiff/Desktop/gr-howto/build/cmake_uninstall.cmake
 
 uninstall: CMakeFiles/uninstall
 uninstall: CMakeFiles/uninstall.dir/build.make
@@ -90,6 +90,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /home/cardiff/Desktop/GNULiteX/gr-howto/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cardiff/Desktop/GNULiteX/gr-howto /home/cardiff/Desktop/GNULiteX/gr-howto /home/cardiff/Desktop/GNULiteX/gr-howto/build /home/cardiff/Desktop/GNULiteX/gr-howto/build /home/cardiff/Desktop/GNULiteX/gr-howto/build/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/cardiff/Desktop/gr-howto/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cardiff/Desktop/gr-howto /home/cardiff/Desktop/gr-howto /home/cardiff/Desktop/gr-howto/build /home/cardiff/Desktop/gr-howto/build /home/cardiff/Desktop/gr-howto/build/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/uninstall.dir/depend
 

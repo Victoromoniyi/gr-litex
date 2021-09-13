@@ -1,4 +1,4 @@
-# Install script for directory: /home/cardiff/Desktop/GNULiteX/gr-howto
+# Install script for directory: /home/cardiff/Desktop/gr-howto
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -43,17 +43,17 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/howto" TYPE FILE FILES "/home/cardiff/Desktop/GNULiteX/gr-howto/cmake/Modules/howtoConfig.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/howto" TYPE FILE FILES "/home/cardiff/Desktop/gr-howto/cmake/Modules/howtoConfig.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/cardiff/Desktop/GNULiteX/gr-howto/build/include/howto/cmake_install.cmake")
-  include("/home/cardiff/Desktop/GNULiteX/gr-howto/build/lib/cmake_install.cmake")
-  include("/home/cardiff/Desktop/GNULiteX/gr-howto/build/apps/cmake_install.cmake")
-  include("/home/cardiff/Desktop/GNULiteX/gr-howto/build/docs/cmake_install.cmake")
-  include("/home/cardiff/Desktop/GNULiteX/gr-howto/build/python/cmake_install.cmake")
-  include("/home/cardiff/Desktop/GNULiteX/gr-howto/build/grc/cmake_install.cmake")
+  include("/home/cardiff/Desktop/gr-howto/build/include/howto/cmake_install.cmake")
+  include("/home/cardiff/Desktop/gr-howto/build/lib/cmake_install.cmake")
+  include("/home/cardiff/Desktop/gr-howto/build/apps/cmake_install.cmake")
+  include("/home/cardiff/Desktop/gr-howto/build/docs/cmake_install.cmake")
+  include("/home/cardiff/Desktop/gr-howto/build/python/cmake_install.cmake")
+  include("/home/cardiff/Desktop/gr-howto/build/grc/cmake_install.cmake")
 
 endif()
 
@@ -65,5 +65,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/cardiff/Desktop/GNULiteX/gr-howto/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/cardiff/Desktop/gr-howto/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,4 +1,4 @@
-# Install script for directory: /home/cardiff/Desktop/GNULiteX/gr-howto/apps
+# Install script for directory: /home/cardiff/Desktop/gr-howto/apps
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

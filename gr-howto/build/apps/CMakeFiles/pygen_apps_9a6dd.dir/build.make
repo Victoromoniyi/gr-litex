@@ -62,10 +62,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/cardiff/Desktop/GNULiteX/gr-howto
+CMAKE_SOURCE_DIR = /home/cardiff/Desktop/gr-howto
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cardiff/Desktop/GNULiteX/gr-howto/build
+CMAKE_BINARY_DIR = /home/cardiff/Desktop/gr-howto/build
 
 # Utility rule file for pygen_apps_9a6dd.
 
@@ -82,10 +82,10 @@ apps/CMakeFiles/pygen_apps_9a6dd.dir/build: pygen_apps_9a6dd
 .PHONY : apps/CMakeFiles/pygen_apps_9a6dd.dir/build
 
 apps/CMakeFiles/pygen_apps_9a6dd.dir/clean:
-	cd /home/cardiff/Desktop/GNULiteX/gr-howto/build/apps && $(CMAKE_COMMAND) -P CMakeFiles/pygen_apps_9a6dd.dir/cmake_clean.cmake
+	cd /home/cardiff/Desktop/gr-howto/build/apps && $(CMAKE_COMMAND) -P CMakeFiles/pygen_apps_9a6dd.dir/cmake_clean.cmake
 .PHONY : apps/CMakeFiles/pygen_apps_9a6dd.dir/clean
 
 apps/CMakeFiles/pygen_apps_9a6dd.dir/depend:
-	cd /home/cardiff/Desktop/GNULiteX/gr-howto/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cardiff/Desktop/GNULiteX/gr-howto /home/cardiff/Desktop/GNULiteX/gr-howto/apps /home/cardiff/Desktop/GNULiteX/gr-howto/build /home/cardiff/Desktop/GNULiteX/gr-howto/build/apps /home/cardiff/Desktop/GNULiteX/gr-howto/build/apps/CMakeFiles/pygen_apps_9a6dd.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/cardiff/Desktop/gr-howto/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cardiff/Desktop/gr-howto /home/cardiff/Desktop/gr-howto/apps /home/cardiff/Desktop/gr-howto/build /home/cardiff/Desktop/gr-howto/build/apps /home/cardiff/Desktop/gr-howto/build/apps/CMakeFiles/pygen_apps_9a6dd.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : apps/CMakeFiles/pygen_apps_9a6dd.dir/depend
 
