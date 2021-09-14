@@ -28,6 +28,8 @@
 #include "config.h"
 #include "csr.h"
 #include "flags.h"
+#include "soc.h"
+
 
 #include "liblitepcie.h"
 

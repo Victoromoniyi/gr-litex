@@ -13,6 +13,7 @@ include(GrPlatform) #define LIB_SUFFIX
 
 list(APPEND litexgnu_sources
     litexgnu_impl.cc
+    liblitepcie.c
 )
 
 set(litexgnu_sources "${litexgnu_sources}" PARENT_SCOPE)
