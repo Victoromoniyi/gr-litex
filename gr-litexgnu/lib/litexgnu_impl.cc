@@ -24,14 +24,15 @@
 #include <gnuradio/io_signature.h>
 #include "litexgnu_impl.h"
 
+extern "C" 
+{
 #include "litepcie.h"
 #include "config.h"
 #include "csr.h"
 #include "flags.h"
 #include "soc.h"
-
-
 #include "liblitepcie.h"
+}
 
 static char litepcie_device[1024];
 static int litepcie_device_num;
