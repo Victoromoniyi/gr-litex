@@ -61,9 +61,10 @@ static void info(void)
         exit(1);
     }
 
-    for(i=0; i<256; i++)
+    for(i=0; i<256; i++) {
         fpga_identification[i] = litepcie_readl(fd, CSR_IDENTIFIER_MEM_BASE + 4*i);
-    printf("FPGA identification: %s\n", fpga_identification);
+    printf("FPGA identification: %s\n", fpga_identification); 
+    }
 }
 
     /*
