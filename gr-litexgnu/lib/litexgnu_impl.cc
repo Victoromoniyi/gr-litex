@@ -88,8 +88,8 @@ static void dma_test(void)
 
     signal(SIGINT, intHandler);
 
-    buf_rd = malloc(DMA_BUFFER_TOTAL_SIZE);
-    buf_wr = malloc(DMA_BUFFER_TOTAL_SIZE);
+    buf_rd = (char*)malloc(DMA_BUFFER_TOTAL_SIZE);
+    buf_wr = (char*)malloc(DMA_BUFFER_TOTAL_SIZE);
 
     errors = 0;
     seed_wr = 0;
@@ -109,15 +109,17 @@ static void dma_test(void)
         exit(1);
     }
 
-
     /* request dma */
     if ((litepcie_request_dma_reader(fds.fd) == 0) |
         (litepcie_request_dma_writer(fds.fd) == 0)) {
         printf("DMA not available, exiting.\n");
         errors += 1;
-        goto exit;
+        exit(1);
     }
 
+    /* enable dma loopback*/
+    litepcie_dma(fds.fd, 1);
+}
     /*
      * The private constructor
      */
@@ -165,9 +167,6 @@ static void dma_test(void)
       snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
       info(); 
 
-    /* enable dma loopback*/
-     litepcie_dma(fds.fd, 1);
-     
       return noutput_items;
     }
 

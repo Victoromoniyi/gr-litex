@@ -8,6 +8,12 @@
 #ifndef INCLUDED_LITEXGNU_LITEXGNU_IMPL_H
 #define INCLUDED_LITEXGNU_LITEXGNU_IMPL_H
 
+sig_atomic_t keep_running = 1;
+
+void intHandler(int dummy) {
+    keep_running = 0;
+}
+
 #include <litexgnu/litexgnu.h>
 
 namespace gr {
