@@ -41,7 +41,7 @@ namespace gr {
   namespace litexgnu {
     using input_type = float;
     using output_type = float;
-    litexgnu::sptr
+    litexgnu::sptr              
     litexgnu::make()
     {
       return gnuradio::make_block_sptr<litexgnu_impl>(
@@ -61,11 +61,62 @@ static void info(void)
         exit(1);
     }
 
-    for(i=0; i<256; i++) {
+    for(i=0; i<256; i++)
         fpga_identification[i] = litepcie_readl(fd, CSR_IDENTIFIER_MEM_BASE + 4*i);
-    printf("FPGA identification: %s\n", fpga_identification); 
-    }
+    printf("FPGA identification: %s\n", fpga_identification);
 }
+
+static void dma_test(void)
+{
+    struct pollfd fds;
+    int ret;
+    int i;
+    ssize_t len;
+
+    int64_t reader_hw_count, reader_sw_count, reader_sw_count_last;
+    int64_t writer_hw_count, writer_sw_count;
+
+    int64_t duration;
+    int64_t last_time;
+
+    uint32_t seed_wr;
+    uint32_t seed_rd;
+
+    uint32_t errors;
+
+    char *buf_rd, *buf_wr;
+
+    signal(SIGINT, intHandler);
+
+    buf_rd = malloc(DMA_BUFFER_TOTAL_SIZE);
+    buf_wr = malloc(DMA_BUFFER_TOTAL_SIZE);
+
+    errors = 0;
+    seed_wr = 0;
+    seed_rd = 0;
+
+    memset(buf_rd, 0, DMA_BUFFER_TOTAL_SIZE);
+    memset(buf_wr, 0, DMA_BUFFER_TOTAL_SIZE);
+
+#ifdef DMA_CHECK_DATA
+    write_pn_data((uint32_t *) buf_wr, DMA_BUFFER_TOTAL_SIZE/4, &seed_wr);
+#endif
+
+    fds.fd = open(litepcie_device, O_RDWR | O_CLOEXEC);
+    fds.events = POLLIN | POLLOUT;
+    if (fds.fd < 0) {
+        fprintf(stderr, "Could not init driver\n");
+        exit(1);
+    }
+
+
+    /* request dma */
+    if ((litepcie_request_dma_reader(fds.fd) == 0) |
+        (litepcie_request_dma_writer(fds.fd) == 0)) {
+        printf("DMA not available, exiting.\n");
+        errors += 1;
+        goto exit;
+    }
 
     /*
      * The private constructor
@@ -105,16 +156,18 @@ static void info(void)
      const char *cmd;
      litepcie_device_num = 0;
 
-     snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
-    
-     info();     
-
       // Do <+signal processing+>
       // Tell runtime system how many input items we consumed on
       // each input stream.
       consume_each (noutput_items);
 
       // Tell runtime system how many output items we produced.
+      snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
+      info(); 
+
+    /* enable dma loopback*/
+     litepcie_dma(fds.fd, 1);
+     
       return noutput_items;
     }
 
