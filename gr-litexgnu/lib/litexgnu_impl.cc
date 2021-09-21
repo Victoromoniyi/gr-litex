@@ -46,6 +46,7 @@ namespace gr {
     {
       return gnuradio::make_block_sptr<litexgnu_impl>(
         );
+
     }
 
 
@@ -154,6 +155,15 @@ static void dma_test(void)
       for(int i = 0; i < noutput_items; i++) {
         out[i] = in[i] * in[i];
       }
+
+
+    bool
+    litexgnu_impl::start ( )
+    {
+    
+    }
+
+
 
      const char *cmd;
      litepcie_device_num = 0;
