@@ -36,6 +36,9 @@ extern "C"
 
 static char litepcie_device[1024];
 static int litepcie_device_num;
+int fd;
+char *buf_rd, *buf_wr;
+
 
 namespace gr {
   namespace litexgnu {
@@ -50,9 +53,10 @@ namespace gr {
     }
 
 
+
 static void info(void)
 {
-    int fd;
+    // int fd;
     int i;
     unsigned char fpga_identification[256];
 
@@ -85,9 +89,7 @@ static void dma_test(void)
 
     uint32_t errors;
 
-    char *buf_rd, *buf_wr;
-
-    signal(SIGINT, intHandler);
+    // char *buf_rd, *buf_wr;
 
     buf_rd = (char*)malloc(DMA_BUFFER_TOTAL_SIZE);
     buf_wr = (char*)malloc(DMA_BUFFER_TOTAL_SIZE);
@@ -141,7 +143,31 @@ static void dma_test(void)
     litexgnu_impl::forecast (int noutput_items, gr_vector_int &ninput_items_required)
     {
       ninput_items_required[0] = noutput_items;
+      
     }
+	
+
+    bool 
+    litexgnu_impl::start( )
+    {
+      signal(SIGINT, intHandler);
+      snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
+      info();
+      return 0; 
+    }
+
+    bool 
+    litexgnu_impl::stop()
+    {
+      if (fd > 1){
+        close(fd);
+      }
+
+      free(buf_rd);
+      free(buf_wr);
+      return 0; 
+    }
+
 
     int
     litexgnu_impl::general_work (int noutput_items,
@@ -149,24 +175,21 @@ static void dma_test(void)
                        gr_vector_const_void_star &input_items,
                        gr_vector_void_star &output_items)
     {
+
+
+
+
+
       const float *in = (const float *)(input_items[0]);
       float *out = (float *)(output_items[0]);
 
-      for(int i = 0; i < noutput_items; i++) {
+      for(int i = 0; i < noutput_items;  i++) {
         out[i] = in[i] * in[i];
       }
 
-
-    bool
-    litexgnu_impl::start ( )
-    {
-    
-    }
-
-
-
      const char *cmd;
      litepcie_device_num = 0;
+
 
       // Do <+signal processing+>
       // Tell runtime system how many input items we consumed on
@@ -174,12 +197,14 @@ static void dma_test(void)
       consume_each (noutput_items);
 
       // Tell runtime system how many output items we produced.
-      snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
-      info(); 
+      //snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
+      //info(); 
 
       return noutput_items;
     }
 
   } /* namespace litexgnu */
+
+  
 } /* namespace gr */
 
