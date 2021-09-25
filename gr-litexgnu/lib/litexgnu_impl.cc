@@ -38,6 +38,9 @@ static char litepcie_device[1024];
 static int litepcie_device_num;
 int fd;
 char *buf_rd, *buf_wr;
+struct pollfd fds;
+uint32_t errors;
+
 
 
 namespace gr {
@@ -53,10 +56,8 @@ namespace gr {
     }
 
 
-
 static void info(void)
 {
-    // int fd;
     int i;
     unsigned char fpga_identification[256];
 
@@ -72,14 +73,10 @@ static void info(void)
 }
 
 static void dma_test(void)
-{
-    struct pollfd fds;
+{    
     int ret;
     int i;
     ssize_t len;
-
-    int64_t reader_hw_count, reader_sw_count, reader_sw_count_last;
-    int64_t writer_hw_count, writer_sw_count;
 
     int64_t duration;
     int64_t last_time;
@@ -87,14 +84,9 @@ static void dma_test(void)
     uint32_t seed_wr;
     uint32_t seed_rd;
 
-    uint32_t errors;
-
-    // char *buf_rd, *buf_wr;
-
     buf_rd = (char*)malloc(DMA_BUFFER_TOTAL_SIZE);
     buf_wr = (char*)malloc(DMA_BUFFER_TOTAL_SIZE);
 
-    errors = 0;
     seed_wr = 0;
     seed_rd = 0;
 
@@ -104,24 +96,6 @@ static void dma_test(void)
 #ifdef DMA_CHECK_DATA
     write_pn_data((uint32_t *) buf_wr, DMA_BUFFER_TOTAL_SIZE/4, &seed_wr);
 #endif
-
-    fds.fd = open(litepcie_device, O_RDWR | O_CLOEXEC);
-    fds.events = POLLIN | POLLOUT;
-    if (fds.fd < 0) {
-        fprintf(stderr, "Could not init driver\n");
-        exit(1);
-    }
-
-    /* request dma */
-    if ((litepcie_request_dma_reader(fds.fd) == 0) |
-        (litepcie_request_dma_writer(fds.fd) == 0)) {
-        printf("DMA not available, exiting.\n");
-        errors += 1;
-        exit(1);
-    }
-
-    /* enable dma loopback*/
-    litepcie_dma(fds.fd, 1);
 }
     /*
      * The private constructor
@@ -130,7 +104,9 @@ static void dma_test(void)
       : gr::block("litexgnu",
               gr::io_signature::make(1, 1, sizeof(input_type)),
               gr::io_signature::make(1, 1, sizeof(output_type)))
-    {}
+    {
+
+    }
 
     /*
      * Our virtual destructor.
@@ -150,9 +126,27 @@ static void dma_test(void)
     bool 
     litexgnu_impl::start( )
     {
+      int64_t reader_hw_count, reader_sw_count, reader_sw_count_last;
+      int64_t writer_hw_count, writer_sw_count;
+      errors = 0;
+
+    /* request dma */
+    if ((litepcie_request_dma_reader(fds.fd) == 0) |
+        (litepcie_request_dma_writer(fds.fd) == 0)) {
+        printf("DMA not available, exiting.\n");
+        errors += 1;
+        exit(1);
+    }
+
+    /* enable dma loopback*/
+    litepcie_dma(fds.fd, 1);
+
       signal(SIGINT, intHandler);
       snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
       info();
+      dma_test();
+
+
       return 0; 
     }
 
@@ -189,6 +183,7 @@ static void dma_test(void)
 
      const char *cmd;
      litepcie_device_num = 0;
+     
 
 
       // Do <+signal processing+>
@@ -197,8 +192,6 @@ static void dma_test(void)
       consume_each (noutput_items);
 
       // Tell runtime system how many output items we produced.
-      //snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
-      //info(); 
 
       return noutput_items;
     }
