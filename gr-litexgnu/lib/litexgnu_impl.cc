@@ -126,6 +126,9 @@ static void dma_test(void)
     bool 
     litexgnu_impl::start( )
     {
+      snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
+      info();
+      
       int64_t reader_hw_count, reader_sw_count, reader_sw_count_last;
       int64_t writer_hw_count, writer_sw_count;
       errors = 0;
@@ -142,8 +145,6 @@ static void dma_test(void)
     litepcie_dma(fds.fd, 1);
 
       signal(SIGINT, intHandler);
-      snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
-      info();
       dma_test();
 
 
@@ -200,4 +201,3 @@ static void dma_test(void)
 
   
 } /* namespace gr */
-
