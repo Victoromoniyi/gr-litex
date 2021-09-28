@@ -40,6 +40,7 @@ int fd;
 char *buf_rd, *buf_wr;
 struct pollfd fds;
 uint32_t errors;
+ssize_t len;
 
 
 
@@ -105,7 +106,7 @@ static void dma_test(void)
               gr::io_signature::make(1, 1, sizeof(input_type)),
               gr::io_signature::make(1, 1, sizeof(output_type)))
     {
-
+      
     }
 
     /*
@@ -122,7 +123,6 @@ static void dma_test(void)
       
     }
 	
-
     bool 
     litexgnu_impl::start( )
     {
@@ -132,6 +132,14 @@ static void dma_test(void)
       int64_t reader_hw_count, reader_sw_count, reader_sw_count_last;
       int64_t writer_hw_count, writer_sw_count;
       errors = 0;
+
+
+    fds.fd = open(litepcie_device, O_RDWR | O_CLOEXEC);
+    fds.events = POLLIN | POLLOUT;
+    if (fds.fd < 0) {
+        fprintf(stderr, "Could not init driver\n");
+        exit(1);
+    }
 
     /* request dma */
     if ((litepcie_request_dma_reader(fds.fd) == 0) |
@@ -170,9 +178,25 @@ static void dma_test(void)
                        gr_vector_const_void_star &input_items,
                        gr_vector_void_star &output_items)
     {
+    
 
+        /* read event */
+        if (fds.revents & POLLIN) {
+            len = read(fds.fd, buf_rd, DMA_BUFFER_TOTAL_SIZE);
+            if(len >= 0) {
+                uint32_t check_errors;
+#ifdef DMA_CHECK_DATA
+                check_errors = check_pn_data((uint32_t *) buf_rd, len/4, &seed_rd);
+                if (writer_hw_count > DMA_BUFFER_COUNT)
+                    errors += check_errors;
+#endif
+            }
+        }
 
-
+        /* write event */
+        if (fds.revents & POLLOUT) {
+            len = write(fds.fd, buf_wr, DMA_BUFFER_TOTAL_SIZE);
+        }
 
 
       const float *in = (const float *)(input_items[0]);
