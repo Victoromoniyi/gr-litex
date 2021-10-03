@@ -73,7 +73,7 @@ static void info(void)
     printf("FPGA identification: %s\n", fpga_identification);
 }
 
-static void dma_test(void)
+static void dma_test(void) //rename to prep_buf
 {    
     int ret;
     int i;
@@ -93,10 +93,6 @@ static void dma_test(void)
 
     memset(buf_rd, 0, DMA_BUFFER_TOTAL_SIZE);
     memset(buf_wr, 0, DMA_BUFFER_TOTAL_SIZE);
-
-#ifdef DMA_CHECK_DATA
-    write_pn_data((uint32_t *) buf_wr, DMA_BUFFER_TOTAL_SIZE/4, &seed_wr);
-#endif
 }
     /*
      * The private constructor
@@ -153,7 +149,7 @@ static void dma_test(void)
     litepcie_dma(fds.fd, 1);
 
       signal(SIGINT, intHandler);
-      dma_test();
+      dma_test(); //rename to prep_buf
 
 
       return 0; 
@@ -162,7 +158,7 @@ static void dma_test(void)
     bool 
     litexgnu_impl::stop()
     {
-      if (fd > 1){
+      if (fd >= 1){
         close(fd);
       }
 
@@ -171,6 +167,9 @@ static void dma_test(void)
       return 0; 
     }
 
+// 256 buffers
+// 8192 bytes long
+// how many dma buffers worth of data i have
 
     int
     litexgnu_impl::general_work (int noutput_items,
@@ -178,25 +177,27 @@ static void dma_test(void)
                        gr_vector_const_void_star &input_items,
                        gr_vector_void_star &output_items)
     {
-    
 
         /* read event */
-        if (fds.revents & POLLIN) {
-            len = read(fds.fd, buf_rd, DMA_BUFFER_TOTAL_SIZE);
-            if(len >= 0) {
-                uint32_t check_errors;
-#ifdef DMA_CHECK_DATA
-                check_errors = check_pn_data((uint32_t *) buf_rd, len/4, &seed_rd);
-                if (writer_hw_count > DMA_BUFFER_COUNT)
-                    errors += check_errors;
-#endif
-            }
-        }
+    if (fds.revents & POLLIN) {
+        len = read(
+            fds.fd,
+            (std::min(  floor(noutput_items * sizeof(output_type)) / DMA_BUFFER_TOTAL_SIZE, DMA_BUFFER_TOTAL_SIZE)),
+            DMA_BUFFER_TOTAL_SIZE
+        );
+    }
 
         /* write event */
         if (fds.revents & POLLOUT) {
-            len = write(fds.fd, buf_wr, DMA_BUFFER_TOTAL_SIZE);
+            len = write(
+                (fds.fd),
+                (ninput_items[0] * sizeof(input_type) / DMA_BUFFER_TOTAL_SIZE),
+                (DMA_BUFFER_TOTAL_SIZE)
+            );
         }
+
+
+
 
 
       const float *in = (const float *)(input_items[0]);
@@ -211,17 +212,27 @@ static void dma_test(void)
      
 
 
+
+
       // Do <+signal processing+>
       // Tell runtime system how many input items we consumed on
       // each input stream.
       consume_each (noutput_items);
+      
 
       // Tell runtime system how many output items we produced.
 
       return noutput_items;
+      
     }
 
   } /* namespace litexgnu */
 
   
 } /* namespace gr */
+
+//noutput_items: 4:   1 float
+//ninputs_items:  24: - 6 floats
+//outputs_items[0]: 8  - 2 floats
+//inputs_items[0]: 8  - 2 floats
+
