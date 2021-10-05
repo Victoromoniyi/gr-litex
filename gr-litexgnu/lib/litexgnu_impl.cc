@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2021 gr-litexgnu author.
+ * Copyright 2021 Victor Omoniyi.
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -23,6 +23,8 @@
 #include <signal.h>
 #include <gnuradio/io_signature.h>
 #include "litexgnu_impl.h"
+#include <algorithm>
+#include <exception>
 
 extern "C" 
 {
@@ -73,7 +75,7 @@ static void info(void)
     printf("FPGA identification: %s\n", fpga_identification);
 }
 
-static void dma_test(void) //rename to prep_buf
+static void dma_test(void) //rename to prep_buff
 {    
     int ret;
     int i;
@@ -84,9 +86,6 @@ static void dma_test(void) //rename to prep_buf
 
     uint32_t seed_wr;
     uint32_t seed_rd;
-
-    buf_rd = (char*)malloc(DMA_BUFFER_TOTAL_SIZE);
-    buf_wr = (char*)malloc(DMA_BUFFER_TOTAL_SIZE);
 
     seed_wr = 0;
     seed_rd = 0;
@@ -122,6 +121,8 @@ static void dma_test(void) //rename to prep_buf
     bool 
     litexgnu_impl::start( )
     {
+      buf_rd = (char*)malloc(DMA_BUFFER_TOTAL_SIZE);
+      buf_wr = (char*)malloc(DMA_BUFFER_TOTAL_SIZE);
       snprintf(litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
       info();
       
@@ -149,7 +150,7 @@ static void dma_test(void) //rename to prep_buf
     litepcie_dma(fds.fd, 1);
 
       signal(SIGINT, intHandler);
-      dma_test(); //rename to prep_buf
+      dma_test(); //rename to prep_buff
 
 
       return 0; 
@@ -177,27 +178,35 @@ static void dma_test(void) //rename to prep_buf
                        gr_vector_const_void_star &input_items,
                        gr_vector_void_star &output_items)
     {
+      int bytes_written;
+      int consumed_items;
+      int created_items;
 
-        /* read event */
-    if (fds.revents & POLLIN) {
-        len = read(
-            fds.fd,
-            (std::min(  floor(noutput_items * sizeof(output_type)) / DMA_BUFFER_TOTAL_SIZE, DMA_BUFFER_TOTAL_SIZE)),
-            DMA_BUFFER_TOTAL_SIZE
-        );
-    }
+            /* write event */
+            if (fds.revents & POLLOUT) {
+            int max_items = DMA_BUFFER_TOTAL_SIZE / sizeof(output_type);
+            int n_write_items = std::min(max_items,ninput_items[0]);
 
-        /* write event */
-        if (fds.revents & POLLOUT) {
-            len = write(
-                (fds.fd),
-                (ninput_items[0] * sizeof(input_type) / DMA_BUFFER_TOTAL_SIZE),
-                (DMA_BUFFER_TOTAL_SIZE)
-            );
+            bytes_written = write(
+                fds.fd,
+            (void*)input_items.data(),
+            ninput_items[0]*sizeof(input_type));
+        if (bytes_written != n_write_items*sizeof(input_type)) {
+            std::cout << "Error: "; 
+            }
         }
 
 
+        consumed_items = bytes_written / sizeof(output_type);
 
+            /* read event */
+            if (fds.revents & POLLIN) {
+                int bytes_read = read(fds.fd,
+                       (void*)output_items.data(),
+                       noutput_items*sizeof(output_type));
+                       
+                       created_items = bytes_read / sizeof(output_type);
+            }
 
 
       const float *in = (const float *)(input_items[0]);
@@ -217,12 +226,12 @@ static void dma_test(void) //rename to prep_buf
       // Do <+signal processing+>
       // Tell runtime system how many input items we consumed on
       // each input stream.
-      consume_each (noutput_items);
+      consume_each(consumed_items);
       
 
       // Tell runtime system how many output items we produced.
 
-      return noutput_items;
+      return created_items;
       
     }
 
@@ -230,9 +239,3 @@ static void dma_test(void) //rename to prep_buf
 
   
 } /* namespace gr */
-
-//noutput_items: 4:   1 float
-//ninputs_items:  24: - 6 floats
-//outputs_items[0]: 8  - 2 floats
-//inputs_items[0]: 8  - 2 floats
-
