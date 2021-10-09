@@ -75,7 +75,7 @@ static void info(void)
     printf("FPGA identification: %s\n", fpga_identification);
 }
 
-static void dma_test(void) //rename to prep_buff
+static void dma_test(void) //rename to prep_buf
 {    
     int ret;
     int i;
@@ -150,7 +150,7 @@ static void dma_test(void) //rename to prep_buff
     litepcie_dma(fds.fd, 1);
 
       signal(SIGINT, intHandler);
-      dma_test(); //rename to prep_buff
+      dma_test(); //rename to prep_buf
 
 
       return 0; 
@@ -168,60 +168,50 @@ static void dma_test(void) //rename to prep_buff
       return 0; 
     }
 
-// 256 buffers
-// 8192 bytes long
-// how many dma buffers worth of data i have
-
     int
     litexgnu_impl::general_work (int noutput_items,
                        gr_vector_int &ninput_items,
                        gr_vector_const_void_star &input_items,
                        gr_vector_void_star &output_items)
     {
-      int bytes_written;
-      int consumed_items;
-      int created_items;
+
+        int bytes_written;
+        int bytes_read;
+        int consumed_items;
+        int created_items;
 
             /* write event */
             if (fds.revents & POLLOUT) {
-            int max_items = DMA_BUFFER_TOTAL_SIZE / sizeof(output_type);
-            int n_write_items = std::min(max_items,ninput_items[0]);
+                int max_items_write = DMA_BUFFER_TOTAL_SIZE / sizeof(input_type);
+                int n_write_items = std::min(max_items_write,ninput_items[0]);
 
-            bytes_written = write(
-                fds.fd,
+            bytes_written = write(fds.fd,
             (void*)input_items.data(),
             ninput_items[0]*sizeof(input_type));
+
         if (bytes_written != n_write_items*sizeof(input_type)) {
-            std::cout << "Error: "; 
+            std::cout << "Error: Max bytes already written"; 
             }
         }
 
 
-        consumed_items = bytes_written / sizeof(output_type);
+        consumed_items = bytes_written / sizeof(input_type);
 
             /* read event */
             if (fds.revents & POLLIN) {
-                int bytes_read = read(fds.fd,
+                int max_items_read = DMA_BUFFER_TOTAL_SIZE / sizeof(input_type);
+                int n_read_items = std::min(max_items_read,ninput_items[0]);
+
+                    bytes_read = read(fds.fd,
                        (void*)output_items.data(),
                        noutput_items*sizeof(output_type));
+
+                       if (bytes_read != n_read_items*sizeof(output_type)) {
+                           std::cout << "Error: Max bytes already read";
+                           }
                        
                        created_items = bytes_read / sizeof(output_type);
             }
-
-
-      const float *in = (const float *)(input_items[0]);
-      float *out = (float *)(output_items[0]);
-
-      for(int i = 0; i < noutput_items;  i++) {
-        out[i] = in[i] * in[i];
-      }
-
-     const char *cmd;
-     litepcie_device_num = 0;
-     
-
-
-
 
       // Do <+signal processing+>
       // Tell runtime system how many input items we consumed on
