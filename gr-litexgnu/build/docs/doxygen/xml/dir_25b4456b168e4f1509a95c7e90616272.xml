@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_25b4456b168e4f1509a95c7e90616272" kind="dir">
+    <compoundname>litexgnu</compoundname>
+    <innerfile refid="api_8h">api.h</innerfile>
+    <innerfile refid="litexgnu_8h">litexgnu.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/cardiff/Desktop/gr-litexgnu/include/litexgnu/"/>
+  </compounddef>
+</doxygen>

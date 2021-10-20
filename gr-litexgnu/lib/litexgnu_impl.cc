@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2021 Victor Omoniyi.
+ * Copyright 2021 Victor Omoniyi
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -34,11 +34,13 @@ extern "C" {
 }
 
 struct pollfd fds;
+int64_t reader_hw_count, reader_sw_count;
+int64_t writer_hw_count, writer_sw_count;
+
+
 sig_atomic_t keep_running = 1;
 
-void intHandler(int dummy) {
-    keep_running = 0;
-}
+void intHandler(int dummy) { keep_running = 0; }
 
 namespace gr {
 namespace litexgnu {
@@ -85,7 +87,7 @@ bool litexgnu_impl::start()
 
     unsigned char fpga_identification[256];
 
-    for(int i=0; i<256; i++)
+    for (int i = 0; i < 256; i++)
         fpga_identification[i] = litepcie_readl(fds.fd, CSR_IDENTIFIER_MEM_BASE + 4 * i);
     printf("FPGA identification: %s\n", fpga_identification);
 
@@ -105,7 +107,7 @@ bool litexgnu_impl::start()
 }
 
 bool litexgnu_impl::stop()
-{   
+{
     litepcie_dma_reader(fds.fd, 0, &reader_hw_count, &reader_sw_count);
     litepcie_dma_writer(fds.fd, 0, &writer_hw_count, &writer_sw_count);
     litepcie_release_dma_reader(fds.fd);
@@ -122,12 +124,21 @@ int litexgnu_impl::general_work(int noutput_items,
                                 gr_vector_const_void_star& input_items,
                                 gr_vector_void_star& output_items)
 {
+    int bytes_written = 0;
+    int bytes_read = 0;
+    int consumed_items = 0;
+    int created_items = 0;
+    int i = 0;
+    int errors;
+    int64_t reader_sw_count_last = 0;
+
+    int64_t duration;
+    int64_t last_time;
+
 
     const float** in = (const float**)&input_items[0];
     float** out = (float**)&output_items[0];
     int ret = 0;
-    int64_t reader_hw_count, reader_sw_count, reader_sw_count_last;
-    int64_t writer_hw_count, writer_sw_count;
 
     /* set / get dma */
     litepcie_dma_writer(fds.fd, 1, &writer_hw_count, &writer_sw_count);
@@ -139,13 +150,6 @@ int litexgnu_impl::general_work(int noutput_items,
         return 0;
     }
 
-    std::cout << "In Work" << '\n';
-
-    int bytes_written = 0;
-    int bytes_read = 0;
-    int consumed_items = 0;
-    int created_items = 0;
-
     /* write event */
     if (fds.revents & POLLOUT) {
         int max_items_write = DMA_BUFFER_TOTAL_SIZE / sizeof(input_type);
@@ -153,17 +157,15 @@ int litexgnu_impl::general_work(int noutput_items,
         int n_dma_items = n_dma_blocks * DMA_BUFFER_SIZE / sizeof(input_type);
         int n_write_items = std::min(max_items_write, n_dma_items);
 
-        std::cout << "Writing Items: " << n_write_items << '\n';
 
-        bytes_written =
-            write(fds.fd, (void*)in[0], n_write_items * sizeof(input_type));
+        bytes_written = write(fds.fd, (void*)in[0], n_write_items * sizeof(input_type));
 
         if (bytes_written != n_write_items * sizeof(input_type)) {
             std::cout << "Error: Max bytes already written" << '\n';
         }
         consumed_items = bytes_written / sizeof(input_type);
 
-        std::cout << "Bytes written: " << bytes_written << '\n';
+        // std::cout << "Bytes written: " << bytes_written << '\n';
     }
 
 
@@ -172,17 +174,32 @@ int litexgnu_impl::general_work(int noutput_items,
         int max_items_read = DMA_BUFFER_TOTAL_SIZE / sizeof(output_type);
         int n_read_items = std::min(max_items_read, noutput_items);
 
-        std::cout << "Reading items: " << n_read_items << '\n';
-        bytes_read =
-            read(fds.fd, (void*)out[0], n_read_items * sizeof(output_type));
+        // std::cout << "Reading items: " << n_read_items << '\n';
+        bytes_read = read(fds.fd, (void*)out[0], n_read_items * sizeof(output_type));
 
         if (bytes_read != n_read_items * sizeof(output_type)) {
             std::cout << "Error: Max bytes already read" << '\n';
         }
         created_items = bytes_read / sizeof(output_type);
-        std::cout << "Items read: " << created_items << '\n';
+        // std::cout << "Items read: " << created_items << '\n';
     }
 
+    /* statistics */
+    duration = get_time_ms() - last_time;
+    if (duration > 200) {
+        if (i % 10 == 0)
+            printf("\e[1mDMA_SPEED(Gbps) TX_BUFFERS RX_BUFFERS  DIFF  ERRORS\e[0m\n");
+        i++;
+        printf("%14.2lf" "%14.2f %10" PRIu64 " %10" PRIu64 " %6" PRIu64 " %7u\n",
+               (double)(reader_sw_count - reader_sw_count_last) * DMA_BUFFER_SIZE * 8 / ((double)duration * 1e6),
+               reader_sw_count,
+               writer_sw_count,
+               reader_sw_count - writer_sw_count,
+               errors);
+        errors = 0;
+        last_time = get_time_ms();
+        reader_sw_count_last = reader_sw_count;
+    }
 
     // Tell runtime system how many input items we consumed on
     // each input stream.
@@ -193,6 +210,7 @@ int litexgnu_impl::general_work(int noutput_items,
 
     return created_items;
 }
+
 
 } /* namespace litexgnu */
 

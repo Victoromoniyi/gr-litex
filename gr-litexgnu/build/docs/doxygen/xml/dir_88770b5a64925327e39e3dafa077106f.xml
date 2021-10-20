@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_88770b5a64925327e39e3dafa077106f" kind="dir">
+    <compoundname>bindings</compoundname>
+    <innerfile refid="build_2python_2bindings_2pydoc__macros_8h">build/python/bindings/pydoc_macros.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/cardiff/Desktop/gr-litexgnu/build/python/bindings/"/>
+  </compounddef>
+</doxygen>

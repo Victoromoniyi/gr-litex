@@ -1,6 +1,6 @@
 id: litexgnu_litexgnu
-label: litexgnu
-category: '[litexgnu]'
+label: "LiteX Accelerator"
+category: '[LiteX]'
 
 templates:
   imports: import litexgnu
