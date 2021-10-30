@@ -124,6 +124,7 @@ int litexgnu_impl::general_work(int noutput_items,
                                 gr_vector_const_void_star& input_items,
                                 gr_vector_void_star& output_items)
 {
+
     int bytes_written = 0;
     int bytes_read = 0;
     int consumed_items = 0;
@@ -134,6 +135,7 @@ int litexgnu_impl::general_work(int noutput_items,
 
     int64_t duration;
     int64_t last_time;
+
 
 
     const float** in = (const float**)&input_items[0];
@@ -186,12 +188,13 @@ int litexgnu_impl::general_work(int noutput_items,
 
     /* statistics */
     duration = get_time_ms() - last_time;
+    double speed = (double)(reader_sw_count - reader_sw_count_last) * DMA_BUFFER_SIZE * 8 / ((double)duration * 1e6);
     if (duration > 200) {
         if (i % 10 == 0)
             printf("\e[1mDMA_SPEED(Gbps) TX_BUFFERS RX_BUFFERS  DIFF  ERRORS\e[0m\n");
         i++;
         printf("%14.2lf" "%14.2f %10" PRIu64 " %10" PRIu64 " %6" PRIu64 " %7u\n",
-               (double)(reader_sw_count - reader_sw_count_last) * DMA_BUFFER_SIZE * 8 / ((double)duration * 1e6),
+               speed,
                reader_sw_count,
                writer_sw_count,
                reader_sw_count - writer_sw_count,
@@ -200,6 +203,8 @@ int litexgnu_impl::general_work(int noutput_items,
         last_time = get_time_ms();
         reader_sw_count_last = reader_sw_count;
     }
+
+
 
     // Tell runtime system how many input items we consumed on
     // each input stream.
@@ -215,4 +220,4 @@ int litexgnu_impl::general_work(int noutput_items,
 } /* namespace litexgnu */
 
 
-} /* namespace gr */
+} /* namespace gr */ 

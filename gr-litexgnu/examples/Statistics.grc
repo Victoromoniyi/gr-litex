@@ -77,7 +77,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1048, 112.0]
+    coordinate: [1048, 128.0]
     rotation: 0
     state: enabled
 - name: blocks_probe_rate_0
