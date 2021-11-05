@@ -13,6 +13,7 @@ LiteX Accelerator Block for GNU Radio
 
 1. [GNU Radio version 3.9+](https://github.com/gnuradio/gnuradio)
 2. [LiteX](https://github.com/enjoy-digital/litex)
+3. SRQL Acorn CLE 215+ FPGA
 
 
 # Quick start guide
