@@ -67,7 +67,7 @@ void litexgnu_impl::forecast(int noutput_items, gr_vector_int& ninput_items_requ
 bool litexgnu_impl::start()
 {
     static char litepcie_device[1024];
-    static int litepcie_device_num = 0; //Channel number
+    static int litepcie_device_num = 0; // Channel number
 
     snprintf(
         litepcie_device, sizeof(litepcie_device), "/dev/litepcie%d", litepcie_device_num);
@@ -175,24 +175,25 @@ int litexgnu_impl::general_work(int noutput_items,
     }
 
 
-        /* statistics */
-        duration = get_time_ms() - last_time;
-        if (duration > 200) {
-            double speed = (double)(reader_sw_count - reader_sw_count_last) * DMA_BUFFER_SIZE * 8 / ((double)duration * 1e6);
-            if(work_iteration%10 == 0)
-                printf("\e[1mDMA_SPEED(Gbps) TX_BUFFERS RX_BUFFERS  DIFF  ERRORS\e[0m\n");
-            work_iteration++;
-            printf("%14.2lf %10" PRIu64 " %10" PRIu64 " %6" PRIu64 " %7u\n",
-                    speed,
-                    reader_sw_count,
-                    writer_sw_count,
-                    reader_sw_count - writer_sw_count,
-                    errors);
-            errors = 0;
-            last_time = get_time_ms();
-            reader_sw_count_last = reader_sw_count;
-        }
-    
+    /* statistics */
+    duration = get_time_ms() - last_time;
+    if (duration > 200) {
+        double speed = (double)(reader_sw_count - reader_sw_count_last) *
+                       DMA_BUFFER_SIZE * BITS_PER_BYTE / ((double)duration * 1e6); //1e6 number of ms/s
+        if (work_iteration % 10 == 0)
+            printf("\e[1mDMA_SPEED(Gbps) TX_BUFFERS RX_BUFFERS  DIFF  ERRORS\e[0m\n");
+        work_iteration++;
+        printf("%14.2lf %10" PRIu64 " %10" PRIu64 " %6" PRIu64 " %7u\n",
+               speed,
+               reader_sw_count,
+               writer_sw_count,
+               reader_sw_count - writer_sw_count,
+               errors);
+        errors = 0;
+        last_time = get_time_ms();
+        reader_sw_count_last = reader_sw_count;
+    }
+
 
     // Tell runtime system how many input items we consumed on
     // each input stream.
@@ -208,4 +209,4 @@ int litexgnu_impl::general_work(int noutput_items,
 } /* namespace litexgnu */
 
 
-} /* namespace gr */ 
+} /* namespace gr */

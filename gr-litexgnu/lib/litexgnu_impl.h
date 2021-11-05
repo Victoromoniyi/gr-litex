@@ -7,6 +7,7 @@
 
 #ifndef INCLUDED_LITEXGNU_LITEXGNU_IMPL_H
 #define INCLUDED_LITEXGNU_LITEXGNU_IMPL_H
+#define BITS_PER_BYTE 8
 
 
 #include <litexgnu/litexgnu.h>
